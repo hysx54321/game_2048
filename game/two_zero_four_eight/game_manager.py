@@ -67,7 +67,11 @@ def save_game(request):
         user = User.objects.filter(id=request.user.id)[0]
         user.game_played += 1
         user.experience += int(game.score)
-        user.highest_score = max(request.user.highest_score, int(game.score))
+        if request.user.highest_score is None:
+            highest_score = 0
+        else:
+            highest_score = request.user.highest_score
+        user.highest_score = max(highest_score, int(game.score))
         user.save()
 
         messages.add_message(request, messages.INFO,
