@@ -11,7 +11,6 @@ urlpatterns = [
     path('user/<int:user_id>/games', views.UserGameListView.as_view(), name='user-game'),
     path('games/', views.GameListView.as_view(), name='games'),
     path('game/<int:pk>', views.GameDetailView.as_view(), name='game-detail'),
-    path('play_game_fake/', game_manager.save_game_fake, name='play-game-fake'),
     path('save_game/', game_manager.save_game, name='save-game'),
     path('play/', game_manager.play_game, name='play-game'),
     path('add_follow/', follow_manager.add_follow, name='add-follow'),

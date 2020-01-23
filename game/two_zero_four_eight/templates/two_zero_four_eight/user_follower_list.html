@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  {% if follower_list %}
+  {% if follow_list %}
     <h1>Follower List</h1>
     <table>
       <tr>
@@ -14,7 +14,7 @@
       </tr>
       {% for follow in follow_list %}
         <tr>
-          <td><a href="{{ follow.follower.get_absolute_url }}">{{ user.username }}</a></td>
+          <td><a href="{{ follow.follower.get_absolute_url }}">{{ follow.follower.username }}</a></td>
           <td>{{follow.created}}</td>
           <td>{{follow.follower.highest_score}}</td>
           <td>{{follow.follower.level}}</td>

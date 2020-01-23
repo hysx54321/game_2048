@@ -21,16 +21,20 @@ def add_follow(request):
     else:
         if existing_follow:
             follow = existing_follow[0]
-            if not follow.active:
-                messages.add_message(request, messages.INFO, 'Successfully followed ' + str(user))
+            if follow.active:
+                messages.add_message(request, messages.WARNING, 'You have already followed ' + str(user))
+                return HttpResponseRedirect(reverse('user-following'))
+            else:
                 follow.active = True
                 follow.updated = timezone.now()
-            else:
-                messages.add_message(request, messages.WARNING, 'You have already followed ' + str(user))
         else:
             follow = Follow(follower=request.user, user=user)
-            messages.add_message(request, messages.INFO, 'Successfully followed ' + str(user))
+        messages.add_message(request, messages.INFO, 'Successfully followed ' + str(user))
         follow.save()
+        request.user.num_following += 1
+        request.user.save()
+        user.num_follower += 1
+        user.save()
     return HttpResponseRedirect(reverse('user-following'))
 
 
@@ -42,8 +46,15 @@ def remove_follow(request):
     user = user[0]
     follow = Follow.objects.filter(follower=request.user, user=user)
     follow = follow[0]
+
+    # TODO: when follow doesn't exist or is not active, do something
+
     follow.active = False
     follow.updated = timezone.now()
     follow.save()
+    request.user.num_following -= 1
+    request.user.save()
+    user.num_follower -= 1
+    user.save()
     messages.add_message(request, messages.INFO, 'Successfully un-followed ' + str(user))
     return HttpResponseRedirect(reverse('user-following'))

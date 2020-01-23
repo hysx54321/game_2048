@@ -6,10 +6,13 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class SaveGameForm(forms.Form):
-    magic_number = forms.IntegerField(help_text="Enter a magic number between 0 and 10000 (default 888).")
+    score = forms.IntegerField()
+    second = forms.IntegerField()
+    move = forms.IntegerField()
+    reconstruction = forms.IntegerField()
 
-    def clean_magic_number(self):
-        data = self.cleaned_data['magic_number']
+    def clean_score(self):
+        data = self.cleaned_data['score']
 
         # Check if the number is too large.
         if data > 10000 or data < 0:

@@ -8,6 +8,7 @@
         <th>Time</th>
         <th>Score</th>
         <th>Move</th>
+        <th>Useless Move</th>
         <th>Reconstruction</th>
         <th>Duration</th>
         <th>2048 Time</th>
@@ -17,6 +18,7 @@
           <td>{{game.started_at}}</td>
           <td>{{game.score}}</td>
           <td>{{game.move}}</td>
+          <td>{{game.useless_move}}</td>
           <td><a href="{{ game.get_absolute_url }}">See Reconstruction</a></td>
           <td>{{game.duration_second}}</td>
           <td>{{game.time_2048_second}}</td>

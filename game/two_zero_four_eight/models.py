@@ -25,11 +25,11 @@ def binary_search(array, number):
     return lo
 
 
-experience_table = [0, 80, 200, 350, 550, 790, 1090, 1420, 1780, 2170, 2590, 3040, 3520, 4030, 4570, 5140, 5740,
-                    6370,
-                    7030, 8440, 9190, 10780, 11620, 12490, 13390, 14320, 15280, 16270, 17290, 18340, 19420, 20530,
-                    21670, 22840, 24040, 25270, 26530, 27820, 29140, 30490, 31830, 33280, 36190, 37690, 39220,
-                    40780, 42370, 43990, 100000000000]
+experience_table = [0, 800, 2000, 3500, 5500, 7900, 10900, 14200, 17800, 21700, 25900, 30400, 35200, 40300, 45700, 51400, 57400,
+                    63700,
+                    70300, 84400, 91900, 107800, 116200, 124900, 133900, 143200, 152800, 162700, 172900, 183400, 194200, 205300,
+                    216700, 228400, 240400, 252700, 265300, 278200, 291400, 304900, 318300, 332800, 361900, 376900, 392200,
+                    407800, 423700, 439900, 100000000000]
 
 vip_table = [0, 100, 500, 1200, 2000, 5000, 15000, 25000, 50000, 10000000000]
 
@@ -40,10 +40,13 @@ def status_string(level, experience, table):
 
 class User(AbstractUser):
     game_played = models.IntegerField(verbose_name='Number of Games Played', default=0)
+    #best_game = models.ForeignKey()
     highest_score = models.PositiveIntegerField(verbose_name='Highest Score', null=True, blank=True)
     fastest_solve = models.PositiveIntegerField(verbose_name='Fastest Solve', null=True, blank=True)
     experience = models.IntegerField(verbose_name='Experience', default=0)
     money_deposited = models.IntegerField(verbose_name='Money Deposited', default=0)
+    num_follower = models.IntegerField(verbose_name='Followers', default=0)
+    num_following = models.IntegerField(verbose_name='Followings', default=0)
 
     # image = models.ImageField()
 
