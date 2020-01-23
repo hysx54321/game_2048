@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3ffbc4e-4bde-400e-b9c0-b0fbeb9b4784" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,6 +13,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/hysx54321/game_2048.git" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1WWUL8ODkUX59fYyOtu4PtfZxUe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -39,7 +47,7 @@
     </option>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>C:\Users\shyx54321\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -51,23 +59,34 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579760947427">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579764005180">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579760947427" />
-    <state x="421" y="99" key="FileChooserDialogImpl" timestamp="1579430791932">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579764005180" />
+    <state x="421" y="99" key="FileChooserDialogImpl" timestamp="1579763367820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="99" key="FileChooserDialogImpl/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579430791932" />
-    <state x="144" y="0" key="SettingsEditor" timestamp="1579264891167">
+    <state x="421" y="99" key="FileChooserDialogImpl/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579763367820" />
+    <state x="144" y="0" key="SettingsEditor" timestamp="1579763777118">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="144" y="0" key="SettingsEditor/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579264891167" />
-    <state x="311" y="156" key="com.intellij.ide.util.TipDialog" timestamp="1579760887365">
+    <state x="144" y="0" key="SettingsEditor/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579763777118" />
+    <state x="311" y="156" key="com.intellij.ide.util.TipDialog" timestamp="1579763500126">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="311" y="156" key="com.intellij.ide.util.TipDialog/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579760887365" />
+    <state x="311" y="156" key="com.intellij.ide.util.TipDialog/1920.497.1280.680/0.0.1280.680@0.0.1280.680" timestamp="1579763500126" />
     <state x="391" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1579431106066">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
