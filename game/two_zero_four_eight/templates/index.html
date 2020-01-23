@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Welcome</h1>
+  <ul>
+    <li><strong>Users:</strong> <a href="{% url 'users'%}">{{ num_users }}</a></li>
+    <li><strong>Games:</strong> <a href="{% url 'games'%}">{{ num_games }}</a></li>
+  </ul>
+{% endblock %}

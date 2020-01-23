@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  {% if user_game_list %}
+    <h1>Game List</h1>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Score</th>
+        <th>Move</th>
+        <th>Reconstruction</th>
+        <th>Duration</th>
+        <th>2048 Time</th>
+      </tr>
+      {% for game in user_game_list %}
+        <tr>
+          <td>{{game.started_at}}</td>
+          <td>{{game.score}}</td>
+          <td>{{game.move}}</td>
+          <td><a href="{{ game.get_absolute_url }}">See Reconstruction</a></td>
+          <td>{{game.duration_second}}</td>
+          <td>{{game.time_2048_second}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>{{ player }} doesn't have any games.</p>
+  {% endif %}
+{% endblock %}
