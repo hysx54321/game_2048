@@ -1,11 +1,131 @@
 {% extends "base_generic.html" %}
 
+{% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/game.css' %}">
+{% endblock %}
+
+{% block head_script %}
+<script>
+  window.console = window.console || function (t) { };
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+{% endblock %}
+{% block react %} {% include "base_react.html" %} {% endblock %}
+
 {% block content %}
-  <h1>User: <a href = '{{game.player.get_absolute_url}}'>{{ game.player }} </a></h1>
-  <p><strong>Score:</strong> {{ game.score }}</p>
-  <p><strong>Time:</strong> {{ game.started_at }}</p>
-  <p><strong>Duration:</strong> {{ game.duration_second }}</p>
-  <p><strong>Move:</strong> {{ game.move }}</p>
-  <p><strong>Useless Move:</strong> {{ game.useless_move }}</p>
-  <p><strong>Game Reconstruction:</strong> <a href="{{ game.get_replay_url }}">See game reconstruction</a></p>
+<h1>User: <a href='{{game.player.get_absolute_url}}'>{{ game.player }} </a></h1>
+<p><strong>Score:</strong> {{ game.score }}</p>
+<p><strong>Time:</strong> {{ game.started_at }}</p>
+<p><strong>Duration:</strong> {{ game.duration_second }}</p>
+<p><strong>Move:</strong> {{ game.move }}</p>
+<p><strong>Useless Move:</strong> {{ game.useless_move }}</p>
+<div id="replay"></div>
+{% endblock %}
+
+{% block script %}
+<script id="rendered-js" type="text/babel">
+  class Board extends React.Component {
+    constructor(props) {
+      super(props);
+      this.size = props.size;
+    }
+
+    renderRow(i) {
+      const row = Array(this.size).fill(0).map((item, index) =>
+        <button className="square" key={i + ',' + index}>{this.props.board[i][index] == 0 ? null : this.props.board[i][index]}</button>
+      );
+      return <div className="board-row" key={'row' + i}>{row}</div>;
+    }
+
+    render() {
+      const rows = Array(this.size).fill(0).map((item, index) =>
+        this.renderRow(index)
+      );
+      return <div>{rows}</div>;
+    }
+  }
+
+  class Replayer extends React.Component {
+    constructor(props) {
+      super(props);
+      this.size = 4;
+      this.state = {
+        move: 0,
+        show: false
+      };
+      this.handleKeyDown = this.handleKeyDown.bind(this);
+      this.direction = {
+        1: "Up",
+        2: "Down",
+        3: "Left",
+        4: "Right"
+      };
+      this.history = JSON.parse(props.history);
+      this.score = this.history[this.history.length - 1].score;
+      this.move = this.history.length - 1;
+      this.handleChange = this.handleChange.bind(this);
+      this.handleClick = this.handleClick.bind(this);
+    }
+    
+    handleClick() {
+      this.setState({show: !this.state.show});
+    }
+
+    handleKeyDown(e) {
+      var key = e.key;
+      switch (key) {
+        case "ArrowLeft":
+          this.jumpTo(this.state.move - 1);
+          // code for "left arrow" key press.
+          break;
+        case "ArrowRight":
+          this.jumpTo(this.state.move + 1);
+          // code for "right arrow" key press.
+          break;
+        default:
+          return; // Quit when this doesn't handle the key event.
+      }
+    }
+
+    handleChange(e) {
+      console.log(e.target.value);
+      const input = parseInt(e.target.value);
+      if (Number.isNaN(input)) {
+        return '';
+      }
+      this.jumpTo(input);
+    }
+
+    jumpTo(move) {
+      if (move < 0 || move >= this.history.length) return;
+      this.setState({
+        move: move
+      });
+    }
+
+    render() {
+      if (!this.state.show) return <button onClick={this.handleClick}>{this.state.show ? "Hide" : "Replay"}</button>;
+      const current = this.history[this.state.move];
+      const nextMove = this.state.move == this.history.length - 1 ? "No More" : this.direction[this.history[this.state.move + 1].previousMove];
+      return (
+        <div className="game" onKeyDown={this.handleKeyDown} tabIndex="888" key='game'>
+          <div className="game-board"><Board board={current.board} size={this.size} /></div>
+          <ul className="game-info">
+            <li>{"Score : " + current.score + " / " + this.score}</li>
+            <li>Move : <input style={ { width: (this.state.move.toString().length * 12).toString() + "px" } } value={this.state.move} onChange={this.handleChange} /> / {this.move}</li>
+            <li>{"Next Move : " + nextMove}</li>
+          </ul>
+        </div>
+      )
+    }
+  }
+  // ========================================
+
+  ReactDOM.render(<Replayer history='{{game.game_reconstruction}}' />, document.getElementById("replay"));
+//# sourceURL=pen.js
+</script>
 {% endblock %}
