@@ -1,3 +1,4 @@
+from django.db.models import Max
 from django.utils import timezone
 
 from django.db import models
@@ -25,10 +26,13 @@ def binary_search(array, number):
     return lo
 
 
-experience_table = [0, 800, 2000, 3500, 5500, 7900, 10900, 14200, 17800, 21700, 25900, 30400, 35200, 40300, 45700, 51400, 57400,
+experience_table = [0, 800, 2000, 3500, 5500, 7900, 10900, 14200, 17800, 21700, 25900, 30400, 35200, 40300, 45700,
+                    51400, 57400,
                     63700,
-                    70300, 84400, 91900, 107800, 116200, 124900, 133900, 143200, 152800, 162700, 172900, 183400, 194200, 205300,
-                    216700, 228400, 240400, 252700, 265300, 278200, 291400, 304900, 318300, 332800, 361900, 376900, 392200,
+                    70300, 84400, 91900, 107800, 116200, 124900, 133900, 143200, 152800, 162700, 172900, 183400, 194200,
+                    205300,
+                    216700, 228400, 240400, 252700, 265300, 278200, 291400, 304900, 318300, 332800, 361900, 376900,
+                    392200,
                     407800, 423700, 439900, 100000000000]
 
 vip_table = [0, 100, 500, 1200, 2000, 5000, 15000, 25000, 50000, 10000000000]
@@ -39,16 +43,15 @@ def status_string(level, experience, table):
 
 
 class User(AbstractUser):
-    game_played = models.IntegerField(verbose_name='Number of Games Played', default=0)
-    #best_game = models.ForeignKey()
-    highest_score = models.PositiveIntegerField(verbose_name='Highest Score', null=True, blank=True)
-    fastest_solve = models.PositiveIntegerField(verbose_name='Fastest Solve', null=True, blank=True)
+    # game_played = models.IntegerField(verbose_name='Number of Games Played', default=0)
+    # best_game = models.ForeignKey()
+    # highest_score = models.PositiveIntegerField(verbose_name='Highest Score', null=True, blank=True)
+    # fastest_solve = models.PositiveIntegerField(verbose_name='Fastest Solve', null=True, blank=True)
     experience = models.IntegerField(verbose_name='Experience', default=0)
     money_deposited = models.IntegerField(verbose_name='Money Deposited', default=0)
-    num_follower = models.IntegerField(verbose_name='Followers', default=0)
-    num_following = models.IntegerField(verbose_name='Followings', default=0)
 
-    # image = models.ImageField()
+    # num_follower = models.IntegerField(verbose_name='Followers', default=0)
+    # num_following = models.IntegerField(verbose_name='Followings', default=0)
 
     # Metadata
     class Meta:
@@ -75,13 +78,30 @@ class User(AbstractUser):
     def vip_level_string(self):
         return 'VIP ' + status_string(level=self.vip_level, experience=self.money_deposited, table=vip_table)
 
+    @property
+    def num_follower(self):
+        return Follow.objects.filter(user=self).count
+
+    @property
+    def num_following(self):
+        return Follow.objects.filter(follower=self).count
+
+    @property
+    def game_played(self):
+        return Game.objects.filter(player=self).count
+
+    @property
+    def highest_score(self):
+        result = Game.objects.filter(player=self).aggregate(max_score=Max('score'))
+        return result.get('max_score')
+
 
 class Game(models.Model):
     """A typical class defining a model, derived from the Model class."""
 
     # Fields
-    player = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    score = models.PositiveIntegerField(verbose_name='Score', default=1)
+    player = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    score = models.PositiveIntegerField(verbose_name='Score')
     started_at = models.DateTimeField(default=timezone.now)
     duration_second = models.PositiveIntegerField(verbose_name='Duration in Second')
     time_2048_second = models.PositiveIntegerField(verbose_name='Time taken to achieve 2048', null=True, blank=True)
@@ -92,6 +112,7 @@ class Game(models.Model):
     # Metadata
     class Meta:
         ordering = ['-started_at']
+        index_together =['player', 'score']
 
     # Methods
     def get_absolute_url(self):
