@@ -19,6 +19,7 @@ def save_game(request):
         game.player = request.user
         game.score = request.POST['score']
         game.move = request.POST['move']
+        game.useless_move = request.POST['useless_move']
         game.game_reconstruction = request.POST['reconstruction']
         game.save()
 
@@ -42,3 +43,8 @@ def save_game(request):
 @login_required
 def play_game(request):
     return render(request, 'two_zero_four_eight/play_game_real.html')
+
+
+def replay_game(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    return render(request, 'two_zero_four_eight/game_replayer.html', context={"game": game})

@@ -44,6 +44,7 @@
           <p style="color:{% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}green{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}yellow{% else %}red{% endif %};">{{message.message}}</p>
           {% endfor %}
           {% endblock %}
+          {% block react %}{% endblock%}
           {% block content %}{% endblock %}
           {% block pagination %}
            {% if is_paginated %}
@@ -55,5 +56,6 @@
       </div>
     </div>
   </div>
+{% block script %} {% endblock %}
 </body>
 </html>

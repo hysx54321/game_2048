@@ -9,8 +9,9 @@
         <th>Score</th>
         <th>Time</th>
         <th>Move</th>
+        <th>Useless Move</th>
         <th>Duration</th>
-        <th>Reconstruction</th>
+        <th>Detail</th>
       </tr>
       {% for game in game_list %}
         <tr>
@@ -18,8 +19,9 @@
           <td>{{ game.score }}</td>
           <td>{{ game.started_at }}</td>
           <td>{{ game.move }}</td>
+          <td>{{ game.useless_move }}</td>
           <td>{{ game.duration_second }} seconds</td>
-          <td><a href="{{ game.get_absolute_url }}">See game reconstruction</a></td>
+          <td><a href="{{ game.get_absolute_url }}">See game detail</a></td>
         </tr>
       {% endfor %}
     </table>

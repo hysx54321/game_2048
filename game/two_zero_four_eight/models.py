@@ -98,6 +98,11 @@ class Game(models.Model):
         """Returns the url to access a particular instance of MyModelName."""
         return reverse('game-detail', args=[str(self.id)])
 
+    # Methods
+    def get_replay_url(self):
+        """Returns the url to access a particular instance of MyModelName."""
+        return reverse('game-replay', args=[str(self.id)])
+
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return 'player: ' + str(self.player) + ' score: ' + str(self.score) + ' time: ' + str(self.started_at)
