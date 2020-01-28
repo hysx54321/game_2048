@@ -9,6 +9,7 @@ urlpatterns = [
     path('user_following/', views.UserFollowingListView.as_view(), name='user-following'),
     path('user_follower/', views.UserFollowerListView.as_view(), name='user-follower'),
     path('user/<int:user_id>/games', views.UserGameListView.as_view(), name='user-game'),
+    path('new_user/', views.new_user, name='new-user'),
     path('games/', views.GameListView.as_view(), name='games'),
     path('game/<int:pk>', views.GameDetailView.as_view(), name='game-detail'),
     path('save_game/', game_manager.save_game, name='save-game'),

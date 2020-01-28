@@ -1,10 +1,15 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 
 # Create your views here.
+from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from two_zero_four_eight.forms import NewUserForm
 from two_zero_four_eight.models import User, Game, Follow
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def index(request):
@@ -62,7 +67,7 @@ class GameDetailView(generic.DetailView):
 
 
 class UserFollowingListView(LoginRequiredMixin, generic.ListView):
-    #model = Follow
+    # model = Follow
     paginate_by = 5
     template_name = 'two_zero_four_eight/user_following_list.html'
 
@@ -71,7 +76,7 @@ class UserFollowingListView(LoginRequiredMixin, generic.ListView):
 
 
 class UserFollowerListView(LoginRequiredMixin, generic.ListView):
-    #model = Follow
+    # model = Follow
     paginate_by = 5
     template_name = 'two_zero_four_eight/user_follower_list.html'
 
@@ -86,7 +91,7 @@ class UserGameListView(LoginRequiredMixin, generic.ListView):
 
     def __init__(self):
         super().__init__()
-        #self.user = get_object_or_404(User, id=self.kwargs['user_id'])
+        # self.user = get_object_or_404(User, id=self.kwargs['user_id'])
 
     def get_queryset(self):
         self.user = get_object_or_404(User, id=self.kwargs['user_id'])
@@ -96,6 +101,35 @@ class UserGameListView(LoginRequiredMixin, generic.ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in the publisher
-        #self.user = get_object_or_404(User, id=self.kwargs['user_id'])
+        # self.user = get_object_or_404(User, id=self.kwargs['user_id'])
         context['player'] = self.user
         return context
+
+
+@staff_member_required
+def new_user(request):
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = NewUserForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                            password=form.cleaned_data['password'])
+            user.save()
+            return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': user.pk}))
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = NewUserForm(initial={'username': "ywdltql"})
+        print(form)
+        print("aaa")
+
+    print(form)
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'two_zero_four_eight/new_user.html', context)

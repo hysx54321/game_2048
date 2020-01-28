@@ -29,9 +29,10 @@
           <li>{{ user.level_string }}</li>
           <li>{{ user.vip_level_string }}</li>
           <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-          <li><a href="{% url 'user-game' user.id%}">My games</a></li>
+          <li><a href="{% url 'user-game' user.id %}">My games</a></li>
           <li><a href="{% url 'user-follower' %}">My followers</a></li>
           <li><a href="{% url 'user-following' %}">My followings</a></li>
+          {% if user.is_staff %} <li><a href="{% url 'new-user' %}">Create User</a></li> {% endif %}
           {% else %}
              <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
           {% endif %}

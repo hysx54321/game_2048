@@ -20,3 +20,12 @@ class SaveGameForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data + random.randint(1, 50)
+
+
+class NewUserForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()
+
+    def clean_username(self):
+        data = self.cleaned_data['username']
+        return data

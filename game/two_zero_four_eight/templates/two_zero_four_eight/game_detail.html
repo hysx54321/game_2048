@@ -17,13 +17,17 @@
 {% block react %} {% include "base_react.html" %} {% endblock %}
 
 {% block content %}
-<h1>User: <a href='{{game.player.get_absolute_url}}'>{{ game.player }} </a></h1>
+<div class="row">
+  <div class="col-sm-3">
+<p><strong>User: </strong><a href='{{game.player.get_absolute_url}}'>{{ game.player }} </a></p>
 <p><strong>Score:</strong> {{ game.score }}</p>
 <p><strong>Time:</strong> {{ game.started_at }}</p>
 <p><strong>Duration:</strong> {{ game.duration_second }}</p>
 <p><strong>Move:</strong> {{ game.move }}</p>
 <p><strong>Useless Move:</strong> {{ game.useless_move }}</p>
-<div id="replay"></div>
+</div>
+<div class="col-sm-6" id="replay"></div>
+</div>
 {% endblock %}
 
 {% block script %}
