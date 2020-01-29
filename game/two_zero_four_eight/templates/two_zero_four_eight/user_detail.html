@@ -12,7 +12,7 @@
   <p><strong>First Name:</strong> {{ user_detail.first_name }}</p>
   <p><strong>Last Name:</strong> {{ user_detail.last_name }}</p>
   <p><strong>Games:</strong> <a href = "{% url 'user-game' user_detail.id %}">{{ user_detail.game_played }}</a></p>
-  <p><strong>Highest Score:</strong> <a href = ''>{{ user_detail.highest_score }}</a></p>
+  <p><strong>Highest Score:</strong> {% if user_detail.best_game %}<a href="{% url 'game-detail' user_detail.best_game.id %}">{{user_detail.highest_score}}</a>{% endif %}</p>
   <p><strong>Level:</strong> {{ user_detail.level }}</p>
   <p><strong>VIP:</strong> {{ user_detail.vip_level }}</p>
   <p><strong>Follower:</strong> {{ user_detail.num_follower }}</p>

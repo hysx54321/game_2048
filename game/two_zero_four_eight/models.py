@@ -44,7 +44,7 @@ def status_string(level, experience, table):
 
 class User(AbstractUser):
     game_played = models.IntegerField(verbose_name='Number of Games Played', default=0)
-    # best_game = models.ForeignKey()
+    best_game = models.OneToOneField('Game', on_delete=models.CASCADE, null=True, blank=True)
     highest_score = models.PositiveIntegerField(verbose_name='Highest Score', null=True, blank=True)
     # fastest_solve = models.PositiveIntegerField(verbose_name='Fastest Solve', null=True, blank=True)
     experience = models.IntegerField(verbose_name='Experience', default=0)

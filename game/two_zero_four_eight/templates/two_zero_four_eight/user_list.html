@@ -17,7 +17,9 @@
         <tr>
           <td><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></td>
           <td><a href="{% url 'user-game' user.id %}">{{user.game_played}}</a></td>
-          <td>{{user.highest_score}}</td>
+          <td>
+            {% if user.best_game %}<a href="{% url 'game-detail' user.best_game.id %}">{{user.highest_score}}</a> {% endif %}
+          </td>
           <td>{{user.level}}</td>
           <td>{{user.vip_level}}</td>
           <td>{{user.num_follower}}</td>

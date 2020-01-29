@@ -16,7 +16,9 @@
         <tr>
           <td><a href="{{ follow.follower.get_absolute_url }}">{{ follow.follower.username }}</a></td>
           <td>{{follow.created}}</td>
-          <td>{{follow.follower.highest_score}}</td>
+          <td>
+            {% if follow.follower.best_game %}<a href="{% url 'game-detail' follow.follower.best_game.id %}">{{follow.follower.highest_score}}</a> {% endif %}
+          </td>
           <td>{{follow.follower.level}}</td>
           <td>{{follow.follower.vip_level}}</td>
           <td>

@@ -23,6 +23,8 @@ def save_game(request):
         game.useless_move = request.POST['useless_move']
         game.game_reconstruction = request.POST['reconstruction']
         if not validate(game):
+            messages.add_message(request, messages.ERROR,
+                                 'Failed to save the game. Please do not try to tamper with the game data.')
             return HttpResponseRedirect(reverse('user-game', kwargs={'user_id': request.user.id}))
         save(request.user, game)
 

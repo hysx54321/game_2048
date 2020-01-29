@@ -15,7 +15,7 @@
         <tr>
           <td>{{ page_obj.start_index|add:forloop.counter|add:-1 }}</td>
           <td><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></td>
-          <td>{{user.highest_score}}</td>
+          <td><a href="{% url 'game-detail' user.best_game.id %}">{{user.highest_score}}</a></td>
           <td>{{user.date_joined}}</td>
           <td>
             <form action="{% url 'add-follow' %}" method="post" onsubmit="return confirm('Do you really want to follow {{ user.username }}?');">

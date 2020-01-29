@@ -51,7 +51,7 @@ class RankListView(generic.ListView):
         return User.objects.filter(highest_score__isnull=False).order_by('-highest_score')
 
 
-class UserDetailView(generic.DetailView):
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
     model = User
     context_object_name = 'user_detail'
 
@@ -61,7 +61,7 @@ class GameListView(generic.ListView):
     paginate_by = 5
 
 
-class GameDetailView(generic.DetailView):
+class GameDetailView(LoginRequiredMixin, generic.DetailView):
     model = Game
 
 
