@@ -20,8 +20,9 @@
           <td>{{follow.follower.level}}</td>
           <td>{{follow.follower.vip_level}}</td>
           <td>
-            <form action="" method="post">
+            <form action="{% url 'remove-follower' %}" method="post" onsubmit="return confirm('Do you really want to delete {{ follow.follower.username }} as a follower?')">
               {% csrf_token %}
+              <input type="hidden" name="user_id" value="{{follow.follower.id}}">
               <input type="submit" value="Delete">
             </form>
           </td>

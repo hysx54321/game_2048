@@ -45,11 +45,10 @@ class UserListView(generic.ListView):
 class RankListView(generic.ListView):
     model = User
     paginate_by = 5
-    ordering = ['-highest_score']
     template_name = 'two_zero_four_eight/user_rank_list.html'
 
     def get_queryset(self):
-        return User.objects.filter(highest_score__isnull=False)
+        return User.objects.filter(highest_score__isnull=False).order_by('-highest_score')
 
 
 class UserDetailView(generic.DetailView):
@@ -124,10 +123,7 @@ def new_user(request):
     # If this is a GET (or any other method) create the default form.
     else:
         form = NewUserForm(initial={'username': "ywdltql"})
-        print(form)
-        print("aaa")
 
-    print(form)
     context = {
         'form': form,
     }

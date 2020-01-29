@@ -13,7 +13,7 @@
       </tr>
       {% for user in user_list %}
         <tr>
-          <td>{{forloop.counter}}</td>
+          <td>{{ page_obj.start_index|add:forloop.counter|add:-1 }}</td>
           <td><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></td>
           <td>{{user.highest_score}}</td>
           <td>{{user.date_joined}}</td>
@@ -28,6 +28,6 @@
       {% endfor %}
     </table>
   {% else %}
-    <p>There are no users in the library.</p>
+    <p>There are no users.</p>
   {% endif %}
 {% endblock %}
