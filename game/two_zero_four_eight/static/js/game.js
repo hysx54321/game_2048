@@ -381,13 +381,19 @@ class Game extends React.Component {
     this.setState({
       history: history,
       board: board,
-      gameEnds: gameEnd,
       score: score,
       message: message,
       move: this.state.move + 1
     });
 
-    if (gameEnd) this.saveGame();
+    if (gameEnd) {
+        this.setState({
+            gameEnds: true,
+        }, function() {
+          this.saveGame();
+        });
+        //this.saveGame();
+    }
   }
 
   render() {
