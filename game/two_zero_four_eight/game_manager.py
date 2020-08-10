@@ -9,6 +9,51 @@ import json
 
 # stretch goal: random seed
 
+def move_to_left(board):
+    for i in range(len(board)):
+        index = 0
+        for j in range(len(board[0])):
+            if board[i][j] != 0:
+                if j == index:
+                    index += 1
+                    continue
+                board[i][index] = board[i][j]
+                index += 1
+                board[i][j] = 0
+
+
+def merge(board):
+    score = 0
+    move_to_left(board)
+    for i in range(len(board)):
+        for j in range(1, len(board[0])):
+            if board[i][j] == board[i][j - 1]:
+                score += board[i][j]
+                board[i][j - 1] *= 2
+                board[i[j]] = 0
+    move_to_left(board)
+
+    return score
+
+
+def rotate_clockwise(board):
+    return
+
+
+def rotate_anticlockwise(board):
+    return
+
+
+def reflect(board):
+    return
+
+
+def up(board):
+    rotate_anticlockwise(board)
+    merge(board)
+    rotate_clockwise(board)
+
+
 def is_valid_board(board):
     if len(board) != 4:
         return False
